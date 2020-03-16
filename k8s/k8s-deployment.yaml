@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: batch-visualizer-auth
-          image: twofootdog/project-repo:batch-visualizer-auth
+          image: geunhyeong93/project-repo:batch-visualizer-auth
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
