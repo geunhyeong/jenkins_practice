@@ -12,7 +12,7 @@ podTemplate(label: 'builder',
                 containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.15.3', command: 'cat', ttyEnabled: true)
             ],
             volumes: [
-                hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/home/admin/k8s/jenkins/.gradle'),
+                hostPathVolume(mountPath: '/home/gradle/.gradle', hostPath: '/home/k8s-admin/jenkins/.gradle'),
                 hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
                 //hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker')
             ]) {
@@ -23,9 +23,7 @@ podTemplate(label: 'builder',
         stage('Build') {
             container('gradle') {
                 /* 도커 이미지를 활용하여 gradle 빌드를 수행하여 ./build/libs에 jar파일 생성 */
-                sh "gradle build"
-                sh "ls"
-                sh "ls ./build"
+                sh "gradle build -x test"
             }
         }
         stage('Docker build') {
